@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'Yekan';
+    src: url('./assets/fonts/Yekan.ttf');
+}
+@font-face {
+    font-family: 'IranSans';
+    src: url('./assets/fonts/IranSans.ttf');
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Yekan', sans-serif;
+}

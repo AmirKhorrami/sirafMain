@@ -1,8 +1,6 @@
 import React from "react";
 import noImage from "../../assets/images/noImage.jpg";
 
-
-
 const FileItems = (props) => {
   const pricePermeter = (totalprice, meter) => {
     const permeter = totalprice / meter;
@@ -51,9 +49,4 @@ const FileItems = (props) => {
   );
 };
 
-FileItems.defaultProps = {
-  name: 'amir'
-}
-
 export default FileItems;
-

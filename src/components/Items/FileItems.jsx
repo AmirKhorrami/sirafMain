@@ -1,4 +1,7 @@
 import React from "react";
+import noImage from "../../assets/images/noImage.jpg";
+
+
 
 const FileItems = (props) => {
   const pricePermeter = (totalprice, meter) => {
@@ -9,7 +12,11 @@ const FileItems = (props) => {
     <div className="cursor-pointer h-[180px]  grid gap-3 grid-cols-3 items-center border-2 border-[#e5e7eb] shadow-sm rounded-md p-3 hover:bg-[#e5e7eb] relative">
       <div className="w-32 h-32">
         <div className="w-full h-full">
-          <img src={props.image} className=" w-full h-full rounded-md" alt="" />
+          <img
+            src={props.image.path || noImage}
+            className=" w-full h-full rounded-md"
+            alt=""
+          />
         </div>
       </div>
       <div className="col-span-2 mr-4">
@@ -44,4 +51,9 @@ const FileItems = (props) => {
   );
 };
 
+FileItems.defaultProps = {
+  name: 'amir'
+}
+
 export default FileItems;
+

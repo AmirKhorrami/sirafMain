@@ -6,6 +6,7 @@ const FileItems = (props) => {
     const permeter = totalprice / meter;
     return permeter;
   };
+  console.log(props.image);
   return (
     <div className="cursor-pointer h-[180px]  grid gap-3 grid-cols-3 items-center border-2 border-[#e5e7eb] shadow-sm rounded-md p-3 hover:bg-[#e5e7eb] relative">
       <div className="w-32 h-32">
@@ -32,7 +33,9 @@ const FileItems = (props) => {
         </div>
         <div>
           <div className="flex items-center">
-            <p className="ml-3 font-bold text-lg">{props.properties[0].name}</p>
+            <p className="ml-3 font-bold text-lg">
+              {props.properties[0].name}
+            </p>
             <p className="font-bold">{props.totalPrice}</p>
           </div>
         </div>
@@ -40,7 +43,7 @@ const FileItems = (props) => {
           <div className="flex">
             <p className="ml-3">قیمت هر متر</p>
             <p className="font-thin">
-              {pricePermeter(props.totalPrice, props.properties[1].value)}
+              {/* {pricePermeter(props.totalPrice, props.properties[1].value || 'توافقی')} */}
             </p>
           </div>
         </div>

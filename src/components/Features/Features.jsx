@@ -7,7 +7,7 @@ const Features = ({ section2 }) => {
   const openHandler = () => {
     setOpen(!open);
   };
-  console.log(open);
+  // console.log(open);
   return (
     <>
       <div className="mt-20 w-full">

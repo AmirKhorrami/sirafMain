@@ -1,34 +1,33 @@
-import React, { useEffect } from "react";
-import Header from "../../components/Navbar/Header";
-import Footer from '../../components/Footer/Footer'
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Navbar from "../../components/Navbar/Header";
+import Footer from "../../components/Footer/Footer";
+import RealEstateH from "../../components/Real-EstateCo/RealEstateH";
+import RealEstateM from "../../components/Real-EstateCo/RealEstateM";
+import RealEstateF from "../../components/Real-EstateCo/RealEstateF";
 const RealEstate = () => {
+  const agentId = useParams().agentId;
+  const [REInfo, setREInfo] = useState();
   useEffect(() => {
-    document.title = "ثبت دفتر املاک";
+    axios
+      .get(`https://estate.siraf.app/api/estate/estate/${agentId}`)
+      .then((res) => setREInfo(res.data.data))
+      .catch((err) => console.log(err));
   }, []);
+  // console.log(REInfo);
   return (
-    <div>
-      <Header />
-      <div>
-        <main>
-          <div className="container max-w-6xl my-6 px-4">
-            <h2 className="text-xl font-bold py-5">ثبت دفتر املاک</h2>
-            <div className="flex flex-col-reverse lg:flex-row items-start justify-center lg:justify-between gap-12">
-              <div className="w-full lg:w-1/2 wrapper_list-real">
-                <div className="flex items-center mb-4">
-                  <h3 className="text-medium font-bold">
-                    مزایای ثبت دفتر املاک :
-                  </h3>
-                  <div className="mr-auto flex"></div>
-                </div>
-              </div>
-              <div className="w-100 h-100 relative cursor-pointer"></div>
-            </div>
-          </div>
-        </main>
-      </div>
-      <Footer/>
-    </div>
+    <>
+      <Navbar />
+      {REInfo && (
+        <div className="w-[1100px] mb-10 rounded-lg border border-[#e5e7eb] m-auto">
+          <RealEstateH info={REInfo} />
+          <RealEstateM info={REInfo} />
+          <RealEstateF info={REInfo} />
+        </div>
+      )}
+      <Footer />
+    </>
   );
 };
 

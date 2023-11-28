@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams, Link, useParams } from "react-router-dom";
+import {
+  useSearchParams,
+  Link,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import axios from "axios";
+import PN from "persian-number";
 
-export default function Modal() {
+export default function Modal({ getApi }) {
   const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [city, setCity] = useState([]);
   const [idArr, setIdArr] = useState([]);
   const [open, setOpen] = useState("");
   const [close, setClose] = useState(false);
-  // const [result, setResult] = useState("");
   const [result, setResult] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`https://file.siraf.app/api/city/citys/?web=true/${Url}`)
       .then((res) => setCity(res.data.data));
+    // .catch((err) => log)
   }, []);
   const stopHandler = (e) => {
     e.stopPropagation();
   };
-  const filterUrl = "cities[]=" + idArr?.map(String).join("cities[]=&");
+  const filterUrl = "cities[]=" + idArr?.map(String).join("&cities[]=");
   const Url = useParams().filterUrl;
+  let entryUrl = "?web=true&cityIds[]";
+  if (idArr.length > 0) {
+    for (let i = 0; i < idArr.length - 1; i++) {
+      entryUrl += `=${idArr[i]}&` + "cityIds[]";
+    }
+    entryUrl += `=${idArr[idArr.length - 1]}&lastId=0&`;
+  }
+  // console.log(entryUrl);
   const clshandler = () => {
     setResult([]);
     setShowModal(false);
@@ -34,6 +49,9 @@ export default function Modal() {
   };
   const closeHandler = (item) => {
     const index = result.indexOf(item);
+    if (index > -1) {
+      idArr.splice(index, 1);
+    }
     if (index !== -1) {
       const update = [...result];
       update.splice(index, 1);
@@ -44,7 +62,12 @@ export default function Modal() {
     if (!result.includes(e)) setResult([...result, e]);
     if (!idArr.includes(id)) setIdArr([...idArr, id]);
   };
-  console.log(idArr);
+  const onClose = () => {
+    navigate(`/?${filterUrl}`);
+    setShowModal(false);
+    getApi(entryUrl, filterUrl);
+  };
+  // console.log(idArr);
   return (
     <>
       <button
@@ -55,13 +78,13 @@ export default function Modal() {
         {result && result.length === 1 ? (
           result
         ) : result && result.length === 0 ? (
-          <div>
-            <p>0</p>
+          <div className="text-sm flex justify-center items-center">
+            <p className="ml-1 mt-1">{PN.convertEnToPe(0)}</p>
             <p>شهر</p>
           </div>
         ) : result && result.length > 1 ? (
           <div>
-            <p>{result.length}</p>
+            <p>{PN.convertEnToPe(result.length)}</p>
             <p>شهر</p>
           </div>
         ) : (
@@ -207,11 +230,9 @@ export default function Modal() {
                   <button
                     className=" hover:shadow h-12 rounded disabled:bg-[#e5e7eb] border p-4 text-base px-14 border-gray-300 opacity-50 bg-zinc-900 text-white flex items-center justify-center"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={onClose}
                   >
-                    <Link to={`/${filterUrl}`}>
-                      <span>تایید</span>
-                    </Link>
+                    <span>تایید</span>
                   </button>
                 </div>
               </div>

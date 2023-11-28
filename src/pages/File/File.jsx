@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Navbar/Header";
 import Footer from "../../components/Footer/Footer";
 import Features from "../../components/Features/Features";
-import TextModal from "../../components/Modals/TextModal"
+import TextModal from "../../components/Modals/TextModal";
 import axios from "axios";
 import Map from "../../components/Maps/Map";
 import Slider from "../../components/Slider/Slider";
@@ -39,6 +39,7 @@ const File = () => {
   const section1 = section && section.filter((item) => item.section === 1);
   const section2 = section && section.filter((item) => item.section === 2);
   const section3 = section && section.filter((item) => item.section === 3);
+  // console.log(counselor);
   return (
     <div>
       <Header />
@@ -46,7 +47,7 @@ const File = () => {
         <div className="right w-4/12 col-span-10 lg:col-span-3 flex flex-col gap-y-1">
           <div className="mt-8 mx-8 text-gray-600 text-lg">
             <p className="text-xl font-normal">
-               <span>مشخصات فایل :</span>
+              <span>مشخصات فایل :</span>
               <span className="font-bold text-black mx-1">
                 {" "}
                 {PN.convertEnToPe(fileData.id)}
@@ -83,6 +84,7 @@ const File = () => {
                 key={item.id}
                 img={item.consultant_id.avatar}
                 estateName={item.estateName}
+                estateId={item?.estateId}
                 name={item.consultant_id.name}
               />
             ))}

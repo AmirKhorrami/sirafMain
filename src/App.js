@@ -7,6 +7,7 @@ import Register from "./pages/Real-Estate/RegisterRealEstate";
 import Commission from "./pages/Commission/Commission";
 import RealEstate from "./pages/Real-Estate/RealEstate";
 import Create from "./pages/Create/Create";
+import  Support from './pages/Support/Support'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -22,7 +23,15 @@ const App = () => {
         <Route path="/files/:fileId" element={<File />} />
         <Route path="/real-state/agency/:agentId" element={<RealEstate />} />
         <Route path="/profile/files/create" element={<Create />} />
-        <Route path="/*" element={<div className="flex justify-center items-center mt-72 text-2xl text-right"><p>404 Not Found </p></div>} />
+        <Route path="/support" element={<Support />} />
+        <Route
+          path="/*"
+          element={
+            <div className="flex justify-center items-center mt-72 text-2xl text-right">
+              <p>404 Not Found </p>
+            </div>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  useSearchParams,
-  Link,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
+import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import axios from "axios";

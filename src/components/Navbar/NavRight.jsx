@@ -28,17 +28,19 @@ const NavRight = () => {
             استعلامات ثبتی
           </li>
         </Link>
-        <li className="text-sm  font-semibold text-[#18181b] cursor-pointer hover:text-[#71717A]">
+        {/* <li className="text-sm  font-semibold text-[#18181b] cursor-pointer hover:text-[#71717A]">
           بلاگ سیراف
-        </li>
+        </li> */}
         <Link to="/about">
           <li className="text-sm  font-semibold text-[#18181b] cursor-pointer hover:text-[#71717A]">
             درباره سیراف و قوانین استفاده
           </li>
         </Link>
-        <li className="text-sm font-semibold text-[#18181b] cursor-pointer hover:text-[#71717A]">
-          پشتیبانی
-        </li>
+        <Link to="/support">
+          <li className="text-sm font-semibold text-[#18181b] cursor-pointer hover:text-[#71717A]">
+            پشتیبانی
+          </li>
+        </Link>
       </ul>
     </div>
     // <div className=" grow justify-start my-[20px]">

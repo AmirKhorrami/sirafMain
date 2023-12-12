@@ -24,11 +24,17 @@ const Footer = () => {
           </div>
         </a>
 
-        <div className="flex  items-center text-center mt-2 border w-52 h-20 p-3 rounded-lg mr-5 cursor-pointer">
-          <div className="mr-2">
-            <p className="text-sm text-[#374151]">دریافت مستقیم نسخه اندروید</p>
+        <a
+          target="blank"
+          className="flex items-center border rounded-lg px-4 py-2 w-52 mx-2 mb-3"
+          href="https://minio.siraf.app/auth/static/apps/estate.apk"
+        >
+          <div className="text-left">
+            <p className="text-xs text-gray-700 p-3">
+              دریافت مستقیم نسخه اندروید
+            </p>
           </div>
-        </div>
+        </a>
         <a
           href="https://sibapp.com/applications/Siraf%7CAccesstoRealestateofficesApplication?from=search"
           target="_blank"

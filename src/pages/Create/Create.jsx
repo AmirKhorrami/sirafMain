@@ -84,13 +84,13 @@ const Create = () => {
                 <MapCreate />
                 <OwnerCreate />
               </ul>
-              {/* {specs && (
+              {specs && (
                 <div>
                   <FeaturesCreate specs={specs} />
                   <FacilitiesCreate specs={specs} />
                   <OtherFCreate specs={specs} />
                 </div>
-              )} */}
+              )}
 
               <ImageCreate />
               <li className="flex justify-between items-center">

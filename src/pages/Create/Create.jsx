@@ -88,7 +88,7 @@ const Create = () => {
                 <div>
                   <FeaturesCreate specs={specs} />
                   <FacilitiesCreate specs={specs} />
-                  {/* <OtherFCreate specs={specs} /> */}
+                  <OtherFCreate specs={specs} />
                 </div>
               )}
 

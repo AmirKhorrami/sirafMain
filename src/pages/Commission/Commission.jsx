@@ -8,15 +8,17 @@ const Commission = () => {
   const [city, setCity] = useState([]);
   const [cityId, setCityId] = useState([]);
   const [close, setClose] = useState(false);
-  const [result, setResult] = useState("انتخاب");
-  const [total, setTotal] = useState("");
-  const [rent, setRent] = useState("");
+  const [result, setResult] = useState();
+  const [total, setTotal] = useState();
+  const [total2, setTotal2] = useState();
+  const [rent, setRent] = useState();
   const [cal, setCal] = useState();
+  const [cal2, setCal2] = useState();
   const closeHandler = () => {
     setClose(!close);
   };
   const resultHandler = (e) => {
-    // setResult(e.target.value)
+    setResult(e.target.value);
     // if (!result.includes(e)) setResult(e);
   };
   const calculate = () => {
@@ -24,27 +26,40 @@ const Commission = () => {
       .post("https://file.siraf.app/api/commission/calculateCommission/", {
         cityId: cityId,
         type: 1,
-        total: total,
-        rent: rent,
+        total: parseInt(total),
+        rent: parseInt(rent),
       })
       .then((res) => setCal(res.data.data));
-
     setTotal("");
+    setCal("");
+    // setCity("");
+  };
+  const calculate2 = () => {
+    axios
+      .post("https://file.siraf.app/api/commission/calculateCommission/", {
+        cityId: cityId,
+        type: 2,
+        total: parseInt(total2),
+        rent: parseInt(rent),
+      })
+      .then((res) => setCal2(res.data.data));
+    setTotal2("");
     setRent("");
+    setCal2("");
     // setCity("");
   };
   useEffect(() => {
     document.title = "محاسبه کمیسیون";
-  }, []);
+  }, [cal]);
   useEffect(() => {
     axios
       .get("https://file.siraf.app/api/city/citys/?web=true/")
       .then((res) => setCity(res.data.data))
       .catch((err) => console.log(err));
   }, []);
-  // console.log(total);
   // console.log(rent);
-  console.log(cal);
+  console.log(cal2);
+  // console.log(result);
   return (
     <div>
       <Header />
@@ -67,9 +82,9 @@ const Commission = () => {
                       نوع معامله
                     </span>
                     <div class="select-box-button relative border w-full text-xs rounded ">
-                      <div>
+                      {/* <div>
                         <button class="flex items-center justify-between p-2 min-w-[10rem] w-full">
-                          <span>{result}</span>
+                          <span>{result || 'انتخاب'}</span>
                           <div class="flex items-center">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +122,7 @@ const Commission = () => {
                                   data-name="رهن و اجاره"
                                   className="px-2 py-3 hover:bg-zinc-100 cursor-pointer select-box-option  "
                                   // onclick={(e)=>setResult("رهن و اجاره")}
-                                  onclick={(e) => setResult("رهن و اجاره")}
+                                  onclick={() => setResult("رهن و اجاره")}
                                 >
                                   رهن و اجاره
                                 </li>
@@ -115,57 +130,98 @@ const Commission = () => {
                             </div>
                           </div>
                         )}
+                      </div> */}
+                      <select onClick={(e) => setResult(e.target.value)}>
+                        <option value="انتخاب" selected>
+                          انتخاب
+                        </option>
+                        <option value="خرید و فروش">خرید و فروش</option>
+                        <option value="رهن و اجاره">رهن و اجاره</option>
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                {result === "خرید و فروش" && (
+                  <li class="flex justify-between items-center">
+                    <div class="my-2 relative group w-full">
+                      <label class="text-sm translate-x-4 z-[1] relative top-3 right-3 px-2  group-focus-within:font-bold bg-white  text-zinc-500 group-focus-within:text-zinc-900">
+                        مبلغ کل
+                      </label>
+                      <div class="relative">
+                        <input
+                          maxlength=""
+                          type="number"
+                          placeholder="مثلا 2,400,000,000"
+                          class="border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:border-zinc-500 group-focus-within:shadow group-focus-within:shadow-zinc-200"
+                          value={total}
+                          onChange={(e) => setTotal(e.target.value)}
+                        />
                       </div>
                     </div>
-                  </div>
-                </li>
-                <li class="flex justify-between items-center">
-                  <div class="my-2 relative group w-full">
-                    <label class="text-sm translate-x-4 z-[1] relative top-3 right-3 px-2  group-focus-within:font-bold bg-white  text-zinc-500 group-focus-within:text-zinc-900">
-                      مبلغ کل
-                    </label>
-                    <div class="relative">
-                      <input
-                        maxlength=""
-                        type="text"
-                        placeholder="مثلا 2,400,000,000"
-                        class="border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:border-zinc-500 group-focus-within:shadow group-focus-within:shadow-zinc-200"
-                        value={total}
-                        onChange={(e) => setTotal(e.target.value)}
-                      />
+                  </li>
+                )}
+                {result === "رهن و اجاره" && (
+                  <li class="flex justify-between items-center">
+                    <div class="my-2 relative group w-full">
+                      <label class="text-sm translate-x-4 z-[1] relative top-3 right-3 px-2  group-focus-within:font-bold bg-white  text-zinc-500 group-focus-within:text-zinc-900">
+                        مبلغ ودیعه
+                      </label>
+                      <div class="relative">
+                        <input
+                          maxlength=""
+                          type="number"
+                          placeholder="مثلا 2,400,000,000"
+                          class="border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:border-zinc-500 group-focus-within:shadow group-focus-within:shadow-zinc-200"
+                          value={total2}
+                          onChange={(e) => setTotal2(e.target.value)}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li class="md:flex justify-between items-center hidden">
-                  <div class="my-2 relative group w-full">
-                    <label class="text-sm translate-x-4 z-[1] relative top-3 right-3 px-2  group-focus-within:font-bold bg-white  text-zinc-500 group-focus-within:text-zinc-900">
-                      مبلغ اجاره
-                    </label>
-                    <div class="relative">
-                      <input
-                        maxlength=""
-                        type="text"
-                        placeholder="مثلا 1,400,000"
-                        class="border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:border-zinc-500 group-focus-within:shadow group-focus-within:shadow-zinc-200"
-                        value={rent}
-                        onChange={(e) => setRent(e.target.value)}
-                      />
+                  </li>
+                )}
+                {result === "رهن و اجاره" && (
+                  <li class="flex justify-between items-center">
+                    <div class="my-2 relative group w-full">
+                      <label class="text-sm translate-x-4 z-[1] relative top-3 right-3 px-2  group-focus-within:font-bold bg-white  text-zinc-500 group-focus-within:text-zinc-900">
+                        مبلغ اجاره
+                      </label>
+                      <div class="relative">
+                        <input
+                          maxlength=""
+                          type="number"
+                          placeholder="مثلا 1,400,000"
+                          class="border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:border-zinc-500 group-focus-within:shadow group-focus-within:shadow-zinc-200"
+                          value={rent}
+                          onChange={(e) => setRent(e.target.value)}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                )}
               </ul>
               <p class="text-xs text-zinc-500">
                 <span class="inline-flex bg-gray-500 w-1.5 h-1.5 rounded-full ml-1"></span>
                 کمیسیون قراردادهای جعاله بصورت توافقی میباشد.
               </p>
-              <button
-                type="button"
-                className="rounded px-4 py-2 my-2 transition-all duration-200  cursor-pointer bg-zinc-500 text-white hover:bg-zinc-600 w-full undefined disabled:bg-zinc-300 disabled:cursor-auto disabled :hover:bg-zinc-300"
-                onClick={calculate}
-              >
-                محاسبه
-              </button>
-              {cal &&  (
+              {result === "خرید و فروش" && (
+                <button
+                  type="button"
+                  className="rounded px-4 py-2 my-2 transition-all duration-200  cursor-pointer bg-zinc-500 text-white hover:bg-zinc-600 w-full undefined disabled:bg-zinc-300 disabled:cursor-auto disabled :hover:bg-zinc-300"
+                  onClick={calculate}
+                >
+                  محاسبه
+                </button>
+              )}
+              {result === "رهن و اجاره" && (
+                <button
+                  type="button"
+                  className="rounded px-4 py-2 my-2 transition-all duration-200  cursor-pointer bg-zinc-500 text-white hover:bg-zinc-600 w-full undefined disabled:bg-zinc-300 disabled:cursor-auto disabled :hover:bg-zinc-300"
+                  onClick={calculate2}
+                >
+                  محاسبه
+                </button>
+              )}
+              {cal && result === "خرید و فروش" && (
                 <div className="my-6">
                   <p className="text-base font-bold text-black">
                     <span className="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>
@@ -187,7 +243,40 @@ const Commission = () => {
                   </div>
                 </div>
               )}
-              {cal === ''  && (
+              {cal2 && result === "رهن و اجاره" && (
+                <div className="my-6">
+                  <p className="text-base font-bold text-black">
+                    <span className="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>{" "}
+                    نتیجه _ با احتساب 9% مالیات بر ارزش افزوده
+                  </p>
+                  <div className="border rounded-md border-zinc-300 bg-gray-100 p-3 flex gap-y-2 w-full h-max items-center flex-col mt-3">
+                    <div className="text-center flex justify-between items-center w-full">
+                      <p className="text-sm font-bold">موجر</p>
+                      <span className="text-sm text-gray-400">
+                        {cal2.landlord}
+                      </span>
+                    </div>
+                    <div className="text-center flex justify-between items-center w-full">
+                      <p className="text-sm font-bold">مستاجر</p>
+                      <span className="text-sm text-gray-400">
+                        {cal2.lessor}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {cal === "" && (
+                <div class="my-6">
+                  <p class="text-base font-bold text-black">
+                    <span class="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>
+                    نتیجه _ با احتساب 9% مالیات بر ارزش افزوده
+                  </p>
+                  <div class="border rounded-md border-zinc-300 bg-gray-100 p-3 flex w-full h-max items-center justify-center mt-3">
+                    در حال بروز رسانی و در انتظار دریافت نرخنامه قانونی
+                  </div>
+                </div>
+              )}
+              {cal2 === "" && (
                 <div class="my-6">
                   <p class="text-base font-bold text-black">
                     <span class="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>

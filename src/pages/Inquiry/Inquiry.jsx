@@ -1,15 +1,16 @@
-import React, {useEffect} from "react";
-import Header from '../../components/Navbar/Header'
-import Footer from '../../components/Footer/Footer'
+import React, { useEffect } from "react";
+import Header from "../../components/Navbar/Header";
+import Footer from "../../components/Footer/Footer";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const Inquiry = () => {
-        useEffect(() => {
-          document.title = "استعلام ثبتی";
-        }, []);
+  useEffect(() => {
+    document.title = "استعلام ثبتی";
+  }, []);
   return (
     <div>
       <div className="flex flex-col">
-        <Header/>
+        <Header />
         <div>
           <div className="my-10">
             <div className="container max-w-2xl mx-auto grid grid-cols-1 gap-2 px-4 ">
@@ -60,8 +61,25 @@ const Inquiry = () => {
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
+      {/* <div>
+        <MapContainer
+          center={[51.505, -0.09]}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[51.505, -0.09]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div> */}
     </div>
   );
 };

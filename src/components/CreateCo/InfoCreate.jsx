@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 
-const InfoCreate = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [input2Value, setInput2Value] = useState("");
-  const [explainValue, setexplainValue] = useState("");
+const InfoCreate = ({
+  setName,
+  name,
+  description,
+  setDescription,
+  address,
+  setAddress,
+}) => {
   const handleChange = (e) => {
     const value = e.target.value;
     if (/^.{1,10}$/.test(value)) {
-      setInputValue(value);
+      setName(value);
     }
   };
   const handle2Change = (e) => {
     const value = e.target.value;
     if (/^.{1,10}$/.test(value)) {
-      setInput2Value(value);
+      setDescription(value);
     }
   };
   const explainChange = (e) => {
     const value = e.target.value;
     if (/^.{1,40}$/.test(value)) {
-      setInputValue(value);
+      setAddress(value);
     }
   };
   return (
@@ -34,21 +38,20 @@ const InfoCreate = () => {
           </label>
           <div className="relative">
             <input
-              maxLength=""
               type="text"
               placeholder="درعنوان فایل، به موارد مهمی مانند نوع ملک، متراژومحله اشاره کنید."
               className={`border w-full placeholder:text-xs p-2 rounded focus:outline-none    group-focus-within:shadow group-focus-within:shadow-zinc-200 ${
-                inputValue && inputValue.length < 10
+                name && name.length < 10
                   ? "border-red-300 group-focus-within:border-red-500"
                   : "group-focus-within:border-zinc-200"
                 // : ''
               }`}
               id="name"
-              value={inputValue}
+              value={name}
               onChange={handleChange}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
-            {inputValue && inputValue.length < 10 && (
+            {name && name.length < 10 && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -60,11 +63,11 @@ const InfoCreate = () => {
                 <path d="M12.866 3l9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0zM11 16v2h2v-2h-2zm0-7v5h2V9h-2z"></path>
               </svg>
             )}
-            {inputValue && inputValue.length === 0 ? (
+            {name && name.length === 0 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 مقدار فیلد نامعتبر است
               </span>
-            ) : inputValue && inputValue.length < 10 ? (
+            ) : name && name.length < 10 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 حداقل کاراکتر مجاز ۱۰ است
               </span>
@@ -88,20 +91,20 @@ const InfoCreate = () => {
               rows="4"
               placeholder="درتوضیحات به جزییات و ویژگی های قایل توجه، دسترسی های محلی و موقعیت ملک اشاره کنید و از درج شماره تماس یا آدرس مستقیم در آن خودداری کنید."
               className={`border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:shadow group-focus-within:shadow-zinc-200 ${
-                explainValue && explainValue.length < 40
+                description && description.length < 40
                   ? "border-red-300 group-focus-within:border-red-500"
                   : "group-focus-within:border-zinc-500"
               }`}
               id="description"
-              value={explainValue}
+              value={description}
               onChange={explainChange}
-              onChange={(e) => setexplainValue(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            {explainValue && explainValue.length === 0 ? (
+            {description && description.length === 0 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 مقدار فیلد نامعتبر است
               </span>
-            ) : explainValue && explainValue.length < 40 ? (
+            ) : description && description.length < 40 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 حداقل کاراکتر مجاز 40 است
               </span>
@@ -125,20 +128,20 @@ const InfoCreate = () => {
               rows="4"
               placeholder="مثلا خیابان امام کوچه شهید صدوقی و..."
               className={`border w-full placeholder:text-xs p-2 rounded focus:outline-none   group-focus-within:shadow group-focus-within:shadow-zinc-200 ${
-                input2Value && input2Value.length < 10
+                address && address.length < 10
                   ? "border-red-300 group-focus-within:border-red-500"
                   : "group-focus-within:border-zinc-500"
               }`}
               id="address"
-              value={input2Value}
+              value={address}
               onChange={handle2Change}
-              onChange={(e) => setInput2Value(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
             ></textarea>
-            {input2Value && input2Value.length === 0 ? (
+            {address && address.length === 0 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 مقدار فیلد نامعتبر است
               </span>
-            ) : input2Value && input2Value.length < 10 ? (
+            ) : address && address.length < 10 ? (
               <span className="bg-rose-50 text-rose-500 rounded px-2 min-h-8 text-xs">
                 حداقل کاراکتر مجاز ۱۰ است
               </span>

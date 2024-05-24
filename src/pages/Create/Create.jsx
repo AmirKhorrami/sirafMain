@@ -26,9 +26,9 @@ const Create = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
-  const [loc, setLoc] = useState("");
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+  // const [loc, setLoc] = useState("");
+  // const [lat, setLat] = useState("");
+  // const [long, setLong] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [ownerPhoneNumber, setOwnerPhoneNumber] = useState("");
   const [visitName, setVisitName] = useState("");
@@ -88,10 +88,10 @@ const Create = () => {
     formData.append("fetcher", JSON.stringify(merge));
     formData.append("lat", 12.4154545454);
     formData.append("long", 16.1484848448);
-    
+
     formData.append("city_id", cityId);
     formData.append("estateIds", null);
-    formData.append("filesName", '798');
+    formData.append("filesName", "798");
 
     selectedImage.forEach((item) => {
       formData.append("files", item);
@@ -105,7 +105,9 @@ const Create = () => {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             // 'Authorization': "Bearer " + localStorage.getItem("accessToken"),
-            'Authorization': "Bearer " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1MDYwNzI5LCJpYXQiOjE3MDI0Njg3MjksImp0aSI6Ijc4MjUyMTNiNmFmNTQ4MGZiM2U1MmQ4ZDg3OTJmM2UyIiwidXNlcl9pZCI6Mzc2LCJpZCI6Mzc2LCJuYW1lIjoiXHUwNjI4XHUwNjJmXHUwNjQ4XHUwNjQ2IFx1MDY0Nlx1MDYyN1x1MDY0NSIsInVzZXJuYW1lIjpudWxsLCJhdmF0YXIiOiJodHRwczovL21pbmlvLnNpcmFmLmFwcC9hdXRoL3N0YXRpYy91cGxvYWQvdXNlci9hdmF0YXIvYXZhdGFyLnBuZyIsIm1vYmlsZVByaXZhdGUiOmZhbHNlLCJlbWFpbCI6bnVsbCwicGhvbmUiOiIwOTM4ODExMDU3NyIsImJpcnRoX2RhdGUiOm51bGwsInN0YXR1cyI6MSwiZ2VuZGVyIjowLCJiaW8iOm51bGwsInR5cGUiOjEsImNpdHlfaWQiOjF9.KCP39GHCSTBv0CPKOnYscYf6uVzxIVuORw2GPFH5iAE',
+            Authorization:
+              "Bearer " +
+              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1MDYwNzI5LCJpYXQiOjE3MDI0Njg3MjksImp0aSI6Ijc4MjUyMTNiNmFmNTQ4MGZiM2U1MmQ4ZDg3OTJmM2UyIiwidXNlcl9pZCI6Mzc2LCJpZCI6Mzc2LCJuYW1lIjoiXHUwNjI4XHUwNjJmXHUwNjQ4XHUwNjQ2IFx1MDY0Nlx1MDYyN1x1MDY0NSIsInVzZXJuYW1lIjpudWxsLCJhdmF0YXIiOiJodHRwczovL21pbmlvLnNpcmFmLmFwcC9hdXRoL3N0YXRpYy91cGxvYWQvdXNlci9hdmF0YXIvYXZhdGFyLnBuZyIsIm1vYmlsZVByaXZhdGUiOmZhbHNlLCJlbWFpbCI6bnVsbCwicGhvbmUiOiIwOTM4ODExMDU3NyIsImJpcnRoX2RhdGUiOm51bGwsInN0YXR1cyI6MSwiZ2VuZGVyIjowLCJiaW8iOm51bGwsInR5cGUiOjEsImNpdHlfaWQiOjF9.KCP39GHCSTBv0CPKOnYscYf6uVzxIVuORw2GPFH5iAE",
           },
         }
       )

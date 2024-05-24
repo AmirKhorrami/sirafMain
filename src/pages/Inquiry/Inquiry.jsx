@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Navbar/Header";
 import Footer from "../../components/Footer/Footer";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const Inquiry = () => {
   useEffect(() => {

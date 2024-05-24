@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const filesPreview = [];
-const selectedFiles = [];
+let filesPreview = [];
+let selectedFiles = [];
 const ImageCreate = ({ imagePreview, setImagePreview, setSelectedImage }) => {
   // const [imagePreview, setImagePreview] = useState(null);
 
@@ -26,8 +26,24 @@ const ImageCreate = ({ imagePreview, setImagePreview, setSelectedImage }) => {
     }
   };
 
-  const delHandler = () => {
-    setImagePreview("");
+  function remove(array, index) {
+    let list = [];
+
+    for (let i = 0; i < array.length; i++) {
+      if (i != index) {
+        list.push(array[i]);
+      }
+    }
+    return list;
+  }
+  const delHandler = (e, index) => {
+    // console.log(index);
+
+    filesPreview = remove(filesPreview, index);
+    selectedFiles = remove(selectedFiles, index);
+    setImagePreview(filesPreview);
+    console.log(filesPreview.length);
+    console.log(selectedFiles.length);
   };
   return (
     <div>
@@ -61,10 +77,10 @@ const ImageCreate = ({ imagePreview, setImagePreview, setSelectedImage }) => {
             </svg>
           </label>
 
-          {filesPreview.map((item) => {
+          {filesPreview.map((item, index) => {
             return (
               <ul className="flex flex-wrap gap-4 col-span-3 sm:col-span-4 mr-8 sm:mr-0">
-                <li className="relative">
+                <li className="relative flex">
                   {item && (
                     <img
                       className="w-24 h-24 rounded object-cover"
@@ -75,7 +91,8 @@ const ImageCreate = ({ imagePreview, setImagePreview, setSelectedImage }) => {
                   <p className="p-1 bg-[#00000075] w-full overflow-hidden absolute bottom-0 text-white rounded"></p>
                   <button
                     className="absolute top-2 left-2 bg-black/70 p-1 rounded-lg hover:opacity-30"
-                    onClick={delHandler}
+                    // file-index={item.index}
+                    onClick={(e) => delHandler(e, index)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

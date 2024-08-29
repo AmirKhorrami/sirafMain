@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Header from "../../components/Navbar/Header";
 import Footer from "../../components/Footer/Footer";
@@ -6,7 +6,7 @@ import CityCreate from "../../components/CreateCo/CityCreate";
 
 const Commission = () => {
   const [city, setCity] = useState([]);
-  const [cityId, setCityId] = useState([]);
+  const [cityId, setCityId] = useState();
   const [close, setClose] = useState(false);
   const [result, setResult] = useState();
   const [total, setTotal] = useState();
@@ -14,6 +14,7 @@ const Commission = () => {
   const [rent, setRent] = useState();
   const [cal, setCal] = useState();
   const [cal2, setCal2] = useState();
+  const [flag, setFlag] = useState(false);
   const closeHandler = () => {
     setClose(!close);
   };
@@ -32,10 +33,12 @@ const Commission = () => {
       .then((res) => setCal(res.data.data));
     setTotal("");
     setCal("");
+    setFlag(false)
+    console.log('dssdsd')
     // setCity("");
   };
   const calculate2 = () => {
-    axios
+   axios
       .post("https://file.siraf.app/api/commission/calculateCommission/", {
         cityId: cityId,
         type: 2,
@@ -46,6 +49,7 @@ const Commission = () => {
     setTotal2("");
     setRent("");
     setCal2("");
+    setFlag(false)
     // setCity("");
   };
   useEffect(() => {
@@ -57,9 +61,10 @@ const Commission = () => {
       .then((res) => setCity(res.data.data))
       .catch((err) => console.log(err));
   }, []);
+  const selectRef = useRef(null);
   // console.log(rent);
   console.log(cal2);
-  // console.log(result);
+  console.log({cityId});
   return (
     <div>
       <Header />
@@ -72,7 +77,7 @@ const Commission = () => {
             <main>
               <ul className="py-6">
                 <CityCreate city={city} setCityId={setCityId} />
-                <li class="flex justify-between items-center">
+                <li class="flex">
                   <div
                     id="select-box"
                     class="group w-full mt-4"
@@ -81,7 +86,8 @@ const Commission = () => {
                     <span class="text-sm bg-white px-2 relative right-2 top-[10px] z-[1]  text-zinc-500">
                       نوع معامله
                     </span>
-                    <div class="select-box-button relative border w-full text-xs rounded ">
+                    
+                    <div class="select-box-button flex justify-between relative border w-full text-xs rounded ">
                       {/* <div>
                         <button class="flex items-center justify-between p-2 min-w-[10rem] w-full">
                           <span>{result || 'انتخاب'}</span>
@@ -131,13 +137,29 @@ const Commission = () => {
                           </div>
                         )}
                       </div> */}
-                      <select onClick={(e) => setResult(e.target.value)}>
-                        <option value="انتخاب" selected>
+                        <select ref={selectRef} required className="appearance-none py-2 cursor-pointer  w-[100%] h-full px-2" onClick={(e) => setResult(e.target.value)}>
+                        {/* <option value="انتخاب" selected>
                           انتخاب
-                        </option>
-                        <option value="خرید و فروش">خرید و فروش</option>
-                        <option value="رهن و اجاره">رهن و اجاره</option>
+                        </option> */}
+                        <option className="rounded-md" selected value="خرید و فروش">خرید و فروش</option>
+                        <option className="rounded-md" value="رهن و اجاره">رهن و اجاره</option>
                       </select>
+                      <div className=" w-[3%] cursor-pointer flex justify-end items-center "   onClick={() => selectRef.current.focus()}>
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#71717a"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-chevron-down"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -207,7 +229,7 @@ const Commission = () => {
                 <button
                   type="button"
                   className="rounded px-4 py-2 my-2 transition-all duration-200  cursor-pointer bg-zinc-500 text-white hover:bg-zinc-600 w-full undefined disabled:bg-zinc-300 disabled:cursor-auto disabled :hover:bg-zinc-300"
-                  onClick={calculate}
+                  onClick={ cityId ? ()=> calculate() : ()=> setFlag(true)}
                 >
                   محاسبه
                 </button>
@@ -216,12 +238,13 @@ const Commission = () => {
                 <button
                   type="button"
                   className="rounded px-4 py-2 my-2 transition-all duration-200  cursor-pointer bg-zinc-500 text-white hover:bg-zinc-600 w-full undefined disabled:bg-zinc-300 disabled:cursor-auto disabled :hover:bg-zinc-300"
-                  onClick={calculate2}
+                  onClick={cityId ? ()=> calculate2() : ()=> setFlag(true)}
                 >
                   محاسبه
                 </button>
               )}
-              {cal && result === "خرید و فروش" && (
+              { flag && <p className="w-full flex items-center justify-center text-red-500">لطفا شهر را انتخاب کنید</p>}
+              {cal  && result === "خرید و فروش" && (
                 <div className="my-6">
                   <p className="text-base font-bold text-black">
                     <span className="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>
@@ -243,7 +266,7 @@ const Commission = () => {
                   </div>
                 </div>
               )}
-              {cal2 && result === "رهن و اجاره" && (
+              {cal2  && result === "رهن و اجاره" && (
                 <div className="my-6">
                   <p className="text-base font-bold text-black">
                     <span className="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>{" "}
@@ -265,7 +288,7 @@ const Commission = () => {
                   </div>
                 </div>
               )}
-              {cal === "" && (
+              {cal === "" && cityId && (
                 <div class="my-6">
                   <p class="text-base font-bold text-black">
                     <span class="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>
@@ -276,7 +299,7 @@ const Commission = () => {
                   </div>
                 </div>
               )}
-              {cal2 === "" && (
+              {cal2 === "" && cityId && (
                 <div class="my-6">
                   <p class="text-base font-bold text-black">
                     <span class="inline-flex bg-black w-1.5 h-1.5 rounded-full ml-1"></span>

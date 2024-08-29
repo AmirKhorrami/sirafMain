@@ -21,6 +21,7 @@ const CityCreate = ({ city, setCityId }) => {
     setCityId(id)
     // setCloseEn(!closeEn);
     // setCloseIn(!closeIn);
+    console.log(e)
   };
   return (
     <div className="flex flex-col">

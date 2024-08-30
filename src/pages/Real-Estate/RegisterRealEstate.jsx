@@ -19,7 +19,7 @@ const RealEstate = () => {
     <div>
       <Header />
       <div>
-        <div>
+        <div className="w-full flex justify-center">
           <main>
             <div className="container max-w-6xl my-6 px-4 mr-24">
               <h2 className="text-xl font-bold py-5">ثبت دفتر املاک</h2>
@@ -404,7 +404,7 @@ const RealEstate = () => {
                   <video
                     className=" video-player"
                     id="videoPlayer"
-                    autoPlay
+                    // autoPlay
                     controls
                   >
                     <source

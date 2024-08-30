@@ -26,16 +26,17 @@ const Slider = ({  media }) => {
               <div key={item.id}>
                 <img
                   className="w-[1050px] h-[500px] rounded-lg"
-                  src={item.path || noImage}
+                  src={!item?.path ?  noImage : item?.path}
                   alt="slider"
                 />
                 <p className="absolute bottom-0 w-20 h-12 m-3 flex items-center justify-center text-white bg-black rounded-xl opacity-80">
-                  {item.name}
+                  {item?.name}
                 </p>
               </div>
             </SwiperSlide>
           ))}
       </Swiper>
+      {/* <img src={noImage} /> */}
     </div>
   );
 };

@@ -39,7 +39,7 @@ const File = () => {
   const section1 = section && section.filter((item) => item.section === 1);
   const section2 = section && section.filter((item) => item.section === 2);
   const section3 = section && section.filter((item) => item.section === 3);
-  // console.log(counselor);
+  console.log(counselor.consultants);
   return (
     <div>
       <Header />
@@ -79,15 +79,17 @@ const File = () => {
             <div className="text-lg flex justify-center items-center h-1/5 bg-[#fafafa] w-full p-5">
               <p>لیست مشاوران</p>
             </div>
-            {counselor?.map((item, index) => (
+            {counselor?.consultants  ? counselor?.map((item, index) => (
               <Counselors
-                key={item.id}
-                img={item.consultant_id.avatar}
-                estateName={item.estateName}
-                estateId={item?.estateId}
-                name={item.consultant_id.name}
+                key={item?.id}
+                img={item?.consultant_id?.avatar || ''}
+                estateName={item?.estateName}
+                estateId={item?.estateId} 
+                name={item?.consultant_id?.name  || ''}
               />
-            ))}
+            )): 
+            <p className="w-full flex justify-center mt-2">مشاوری وجود ندارد</p> 
+            }
           </div>
         </div>
         <div className="left w-8/12 mr-5 mt-10">
